@@ -11,13 +11,8 @@ import { DeliveryService } from '../delivery.service';
 export class DeliveryComponent implements OnInit {
 
   deliveries: Delivery[];
-  selectedDelivery: Delivery;
 
   constructor(private deliveryService: DeliveryService) { }
-
-  onSelect(delivery: Delivery): void {
-    this.selectedDelivery = delivery;
-  }
 
   getDeliveries(): void {
     this.deliveryService.getDeliveries()

@@ -15,4 +15,8 @@ export class DeliveryService {
     return of(DELIVERIES);
   }
 
+  getDelivery(id: number): Observable<Delivery> {
+    return of(DELIVERIES.find(delivery => delivery.id === id));
+  }
+
 }

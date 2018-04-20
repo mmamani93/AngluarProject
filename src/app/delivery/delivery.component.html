@@ -1,8 +1,10 @@
 <h2>My Deliveries</h2>
-<ul class="deliveries">
-  <li *ngFor="let delivery of deliveries" (click)="onSelect(delivery)">
-    <span class="badge">{{delivery.id}}</span> {{delivery.name}}
-  </li>
-</ul>
+<ul>
+    <li *ngFor="let delivery of deliveries">
+      <a routerLink="/detail/{{delivery.id}}">
+        <span>{{delivery.id}}</span> {{delivery.name}}
+      </a>
+    </li>
+  </ul>
 
 <app-delivery-detail [delivery]="selectedDelivery"></app-delivery-detail>

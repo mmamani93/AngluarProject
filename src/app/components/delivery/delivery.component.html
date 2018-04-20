@@ -1,0 +1,87 @@
+<div class=row>
+  <div class="col-md-10">
+    <h3>{{title}}</h3>
+  </div>
+  <div class="col-md-2">
+    <button class="btn btn-primary" style="float: right; margin-top: 20px; margin-bottom: 10px;">
+      <span class="glyphicon glyphicon-asterisk"></span>
+      Crear nuevo delivery
+    </button>
+  </div>
+</div>
+
+<hr style="margin-top: 0px">
+
+<div class="row">
+  <form class="col-md-8 well form-inline">
+
+    <font size="4" class="col-md-2">
+      <span class="glyphicon glyphicon-filter"></span>
+      <b>Filtros</b>
+    </font>
+
+    <div class="col-md-5">
+      <div class="col-md-3">Nombre</div>
+      <input #searchBox id="search-box" (keyup)="search(searchBox.value)" class="form-control col-md-9">
+    </div>
+
+    <div class="col-md-5">
+      <div class="col-md-4">Dirección</div>
+      <input #searchBox id="search-box" (keyup)="search(searchBox.value)" class="form-control col-md-8">
+    </div>
+  </form>
+</div>
+
+
+<div class="row">
+  <table class="col-md-12 table table-striped table-bordered table-responsive">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Dirección</th>
+        <th>Teléfono</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let delivery of deliveries">
+        <td>{{delivery.name}}</td>
+        <td>{{delivery.address}}</td>
+        <td>{{delivery.telephone}}</td>
+        <td>
+          <button type="button" class="btn btn-primary glyphicon glyphicon-trash" (click)="delete(delivery)"></button>
+          <button type="button" class="btn btn-danger glyphicon glyphicon-edit" (click)="edit(delivery)"></button>
+        </td>
+      </tr>
+      <tr *ngIf="deliveries?.length == 0">
+          No se encontraron deliveries
+        </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
+
+<!--
+
+<ul>
+      <li *ngFor="let delivery of deliveries">
+        <a routerLink="/detail/{{delivery.id}}">
+          <span>{{delivery.id}}</span> {{delivery.name}}
+        </a>
+        <button class="delete" title="delete delivery" (click)="delete(delivery)">x</button>
+      </li>
+    </ul>
+
+<div>
+  <label>Dlivery name:
+    <input #deliveryName />
+  </label>
+  <button (click)="add(deliveryName.value); deliveryName.value=''">
+    add
+  </button>
+</div>
+
+<app-delivery-detail [delivery]="selectedDelivery"></app-delivery-detail>
+-->

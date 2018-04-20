@@ -1,13 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService }  from './services/in-memory-data.service';
+import { HttpClientModule }    from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { DeliveryComponent } from './delivery/delivery.component';
-import { DeliveryDetailComponent } from './delivery-detail/delivery-detail.component';
-import { DeliveryService } from './delivery.service';
-import { MessagesComponent } from './messages/messages.component';
-import { MessageService } from './message.service';
+import { DeliveryComponent } from './components/delivery/delivery.component';
+import { DeliveryDetailComponent } from './components/delivery/delivery-detail.component';
+import { DeliveryService } from './services/delivery.service';
+import { AppRoutingModule } from './app-routing.module';
+import { DeliverySearchComponent } from './components/delivery/delivery-search.component';
 
 
 @NgModule({
@@ -15,13 +18,18 @@ import { MessageService } from './message.service';
     AppComponent,
     DeliveryComponent,
     DeliveryDetailComponent,
-    MessagesComponent
+    DeliverySearchComponent,
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    AppRoutingModule,
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(
+      InMemoryDataService, { dataEncapsulation: false }
+    )
   ],
-  providers: [DeliveryService, MessageService],
+  providers: [DeliveryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
