@@ -7,6 +7,7 @@ import { DeliveryComponent } from './delivery/delivery.component';
 import { DeliveryDetailComponent } from './delivery-detail/delivery-detail.component';
 import { DeliveryService } from './delivery.service';
 import { MessagesComponent } from './messages/messages.component';
+import { MessageService } from './message.service';
 
 
 @NgModule({
@@ -20,7 +21,7 @@ import { MessagesComponent } from './messages/messages.component';
     BrowserModule,
     FormsModule
   ],
-  providers: [DeliveryService],
+  providers: [DeliveryService, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
