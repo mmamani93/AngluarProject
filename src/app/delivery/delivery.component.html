@@ -1,0 +1,8 @@
+<h2>My Deliveries</h2>
+<ul class="deliveries">
+  <li *ngFor="let delivery of deliveries" (click)="onSelect(delivery)">
+    <span class="badge">{{delivery.id}}</span> {{delivery.name}}
+  </li>
+</ul>
+
+<app-delivery-detail [delivery]="selectedDelivery"></app-delivery-detail>
