@@ -1,91 +1,79 @@
-<form class="row form-group form-inline">
+<form class="row form-inline" *ngIf="delivery">
   <h3>Datos administrativos</h3>
   <hr>
-  <div clss="col-md-12">
-    <label>Nombre</label>
-    <input #name class="form-control">
+  <div class="col-md-12">
+    <div class="col-md-3">Nombre</div>
+    <input [(ngModel)]="delivery.name" class="form-control" name="name">
   </div>
-  <div clss="col-md-12">
-    <label>Teléfono</label>
-    <input #telephone class="form-control">
+  <div class="col-md-12">
+    <div class="col-md-3">Teléfono</div>
+    <input [(ngModel)]="delivery.telephone" name="telephone" class="form-control">
   </div>
-  <div clss="col-md-12">
-    <label>Descripción</label>
-    <input #description class="form-control" rows="5">
+  <div class="col-md-12">
+    <div class="col-md-3">Descripción</div>
+    <textarea  [(ngModel)]="delivery.description" name="description" class="form-control" rows="5"></textarea>
   </div>
-  <div clss="col-md-12">
-    <label>Especialidades</label>
-    <input #specialities class="form-control" rows="5">
+  <div class="col-md-12">
+    <div class="col-md-3">Especialidades</div>
+    <textarea  [(ngModel)]="delivery.specialities" name="specialities" class="form-control" rows="5"></textarea>
   </div>
-  <div clss="col-md-12">
-    <label>Dirección</label>
-    <input #address class="form-control">
+  <div class="col-md-12">
+    <div class="col-md-3">Dirección</div>
+    <input  [(ngModel)]="delivery.address" name="address" class="form-control">
   </div>
-  <div clss="col-md-12">
-    <label>Horario de atención</label>
-    <input #businessTime class="form-control">
+  <div class="col-md-12">
+    <div class="col-md-3">Horario de atención</div>
+    <input  [(ngModel)]="delivery.businessHours" name="businessHours" class="form-control">
   </div>
 </form>
 
-<form class="row">
-  <div class="col-md-6">
+<form class="row" *ngIf="delivery">
+  <div class="col-md-6 form-inline">
     <h3>Contacto Administrativo</h3>
     <hr>
-    <div clss="col-md-12">
-      <label>Nombre</label>
-      <input #adminContactName class="form-control">
+    <div class="col-md-12">
+      <div class="col-md-4">Nombre</div>
+      <input [(ngModel)]="delivery.administrativeContact.name" name="administrativeContact.name" class="form-control">
     </div>
-    <div clss="col-md-12">
-      <label>Apellido</label>
-      <input #adminContactLastname class="form-control">
+    <div class="col-md-12">
+      <div class="col-md-4">Apellido</div>
+      <input [(ngModel)]="delivery.administrativeContact.lastname" name="administrativeContact.lastname"  class="form-control">
     </div>
-    <div clss="col-md-12">
-      <label>Teléfono</label>
-      <input #adminContactTelephone class="form-control">
+    <div class="col-md-12">
+      <div class="col-md-4">Teléfono</div>
+      <input [(ngModel)]="delivery.administrativeContact.telephone" name="administrativeContact.telephone" class="form-control">
     </div>
-    <div clss="col-md-12">
-      <label>Email</label>
-      <input #adminContactEmail class="form-control">
+    <div class="col-md-12">
+      <div class="col-md-4">Email</div>
+      <input [(ngModel)]="delivery.administrativeContact.email" name="administrativeContact.email" class="form-control">
     </div>
   </div>
 
-  <div class="col-md-6">
-      <h3>Contacto Comercial</h3>
-      <hr>
-      <div clss="col-md-12">
-        <label>Nombre</label>
-        <input #commercialContactName class="form-control">
-      </div>
-      <div clss="col-md-12">
-        <label>Apellido</label>
-        <input #commercialContactLastname class="form-control">
-      </div>
-      <div clss="col-md-12">
-        <label>Teléfono</label>
-        <input #commercialContactTelephone class="form-control">
-      </div>
-      <div clss="col-md-12">
-        <label>Email</label>
-        <input #commercialContactEmail class="form-control">
-      </div>
+  <div class="col-md-6 form-inline">
+    <h3>Contacto Comercial</h3>
+    <hr>
+    <div class="col-md-12">
+      <div class="col-md-4">Nombre</div>
+      <input  [(ngModel)]="delivery.commercialContact.name" name="commercialContact.name" class="form-control">
     </div>
+    <div class="col-md-12">
+      <div class="col-md-4">Apellido</div>
+      <input  [(ngModel)]="delivery.commercialContact.lastname" name="commercialContact.lastname" class="form-control">
+    </div>
+    <div class="col-md-12">
+      <div class="col-md-4">Teléfono</div>
+      <input [(ngModel)]="delivery.commercialContact.telephone" name="commercialContact.telephone"  class="form-control">
+    </div>
+    <div class="col-md-12">
+      <div class="col-md-4">Email</div>
+      <input  [(ngModel)]="delivery.commercialContact.email" name="commercialContact.email" class="form-control">
+    </div>
+  </div>
 </form>
 
 <div class="row">
-    <div>
-      <div *ngIf="delivery">
-        <h2>{{ delivery.name | uppercase }} Details</h2>
-        <div>
-          <span>id: </span>{{delivery.id}}</div>
-        <div>
-          <label>name:
-            <input [(ngModel)]="delivery.name" placeholder="name" />
-          </label>
-        </div>
-      </div>
-  
-  
-      <button (click)="save()">save</button>
-      <button (click)="goBack()">go back</button>
-    </div>
+  <div class="col-md-4" style="float: right;">
+      <button class="btn btn-primary" (click)="goBack()">Cancelar</button>
+    <button class="btn btn-primary" (click)="save()">Guardar</button>
   </div>
+</div>

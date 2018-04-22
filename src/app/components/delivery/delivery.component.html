@@ -52,10 +52,12 @@
         <td>{{delivery.telephone}}</td>
         <td>
           <button type="button" class="btn btn-primary glyphicon glyphicon-trash" (click)="delete(delivery)"></button>
-          <button type="button" class="btn btn-danger glyphicon glyphicon-edit" (click)="edit(delivery)"></button>
+          <a [routerLink]="['/detail',delivery.id]">
+            <button type="button" class="btn btn-danger glyphicon glyphicon-edit"></button>
+          </a>
         </td>
       </tr>
-      <tr *ngIf="deliveries?.length == 0">
+      <tr *ngIf="(deliveries | deliveryFilter:  nameFilter : addressFilter)?.length === 0">
         No se encontraron deliveries
       </tr>
     </tbody>
