@@ -1,14 +1,91 @@
-<div *ngIf="delivery">
-
-  <h2>{{ delivery.name | uppercase }} Details</h2>
-  <div><span>id: </span>{{delivery.id}}</div>
-  <div>
-    <label>name:
-      <input [(ngModel)]="delivery.name" placeholder="name"/>
-    </label>
+<form class="row form-group form-inline">
+  <h3>Datos administrativos</h3>
+  <hr>
+  <div clss="col-md-12">
+    <label>Nombre</label>
+    <input #name class="form-control">
   </div>
-</div>
+  <div clss="col-md-12">
+    <label>Teléfono</label>
+    <input #telephone class="form-control">
+  </div>
+  <div clss="col-md-12">
+    <label>Descripción</label>
+    <input #description class="form-control" rows="5">
+  </div>
+  <div clss="col-md-12">
+    <label>Especialidades</label>
+    <input #specialities class="form-control" rows="5">
+  </div>
+  <div clss="col-md-12">
+    <label>Dirección</label>
+    <input #address class="form-control">
+  </div>
+  <div clss="col-md-12">
+    <label>Horario de atención</label>
+    <input #businessTime class="form-control">
+  </div>
+</form>
 
+<form class="row">
+  <div class="col-md-6">
+    <h3>Contacto Administrativo</h3>
+    <hr>
+    <div clss="col-md-12">
+      <label>Nombre</label>
+      <input #adminContactName class="form-control">
+    </div>
+    <div clss="col-md-12">
+      <label>Apellido</label>
+      <input #adminContactLastname class="form-control">
+    </div>
+    <div clss="col-md-12">
+      <label>Teléfono</label>
+      <input #adminContactTelephone class="form-control">
+    </div>
+    <div clss="col-md-12">
+      <label>Email</label>
+      <input #adminContactEmail class="form-control">
+    </div>
+  </div>
 
-<button (click)="save()">save</button>
-<button (click)="goBack()">go back</button>
+  <div class="col-md-6">
+      <h3>Contacto Comercial</h3>
+      <hr>
+      <div clss="col-md-12">
+        <label>Nombre</label>
+        <input #commercialContactName class="form-control">
+      </div>
+      <div clss="col-md-12">
+        <label>Apellido</label>
+        <input #commercialContactLastname class="form-control">
+      </div>
+      <div clss="col-md-12">
+        <label>Teléfono</label>
+        <input #commercialContactTelephone class="form-control">
+      </div>
+      <div clss="col-md-12">
+        <label>Email</label>
+        <input #commercialContactEmail class="form-control">
+      </div>
+    </div>
+</form>
+
+<div class="row">
+    <div>
+      <div *ngIf="delivery">
+        <h2>{{ delivery.name | uppercase }} Details</h2>
+        <div>
+          <span>id: </span>{{delivery.id}}</div>
+        <div>
+          <label>name:
+            <input [(ngModel)]="delivery.name" placeholder="name" />
+          </label>
+        </div>
+      </div>
+  
+  
+      <button (click)="save()">save</button>
+      <button (click)="goBack()">go back</button>
+    </div>
+  </div>

@@ -3,10 +3,12 @@
     <h3>{{title}}</h3>
   </div>
   <div class="col-md-2">
-    <button class="btn btn-primary" style="float: right; margin-top: 20px; margin-bottom: 10px;">
-      <span class="glyphicon glyphicon-asterisk"></span>
-      Crear nuevo delivery
-    </button>
+    <a routerLink="/detail">
+      <button class="btn btn-primary" style="float: right; margin-top: 20px; margin-bottom: 10px;">
+        <span class="glyphicon glyphicon-asterisk"></span>
+        {{newDeliveryButton}}
+      </button>
+    </a>
   </div>
 </div>
 
@@ -21,13 +23,13 @@
     </font>
 
     <div class="col-md-5">
-      <div class="col-md-3">Nombre</div>
-      <input #searchBox id="search-box" (keyup)="search(searchBox.value)" class="form-control col-md-9">
+      <div class="col-md-4">Nombre</div>
+      <input type="text" [(ngModel)]="nameFilter" class="form-control col-md-8" name="nameFilter">
     </div>
 
     <div class="col-md-5">
       <div class="col-md-4">Dirección</div>
-      <input #searchBox id="search-box" (keyup)="search(searchBox.value)" class="form-control col-md-8">
+      <input type="text" [(ngModel)]="addressFilter" class="form-control col-md-8" name="addressFilter">
     </div>
   </form>
 </div>
@@ -44,7 +46,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let delivery of deliveries">
+      <tr *ngFor="let delivery of deliveries | deliveryFilter: nameFilter : addressFilter">
         <td>{{delivery.name}}</td>
         <td>{{delivery.address}}</td>
         <td>{{delivery.telephone}}</td>
@@ -54,8 +56,8 @@
         </td>
       </tr>
       <tr *ngIf="deliveries?.length == 0">
-          No se encontraron deliveries
-        </tr>
+        No se encontraron deliveries
+      </tr>
     </tbody>
   </table>
 </div>
