@@ -65,6 +65,7 @@ export class DeliveryDetailComponent implements OnInit {
       this.isEdit = false;
       this.descriptionAvailableCharacters = this.descriptionMaxCharacters;
       this.specialitiesAvailableCharacters = this.specialitiesMaxCharacters;
+      this.delivery = new Delivery();
     }
   }
 
@@ -83,6 +84,13 @@ export class DeliveryDetailComponent implements OnInit {
 
   specialitiesKeyup(text): void {
     this.specialitiesAvailableCharacters = this.specialitiesMaxCharacters - text.length;
+  }
+
+  isValid(fieldName: string, validation: string): boolean {
+    let field = this.deliveryForm.get(fieldName);
+    if (field.hasError(validation) && (field.touched || field.dirty) == true)
+      return false;
+    return true;
   }
 
 }

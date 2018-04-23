@@ -7,7 +7,7 @@
     <div class="col-sm-2">
       <input [(ngModel)]="delivery.name" class="form-control" formControlName="name" maxlength="50">
     </div>
-    <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('name').hasError('required')"> {{requiredErrorMessage}}</div>
+    <div class="col-sm-2 text-danger" *ngIf="!isValid('name', 'required')"> {{requiredErrorMessage}}</div>
   </div>
 
   <div class="form-group">
@@ -15,7 +15,7 @@
     <div class="col-sm-2">
       <input [(ngModel)]="delivery.telephone" class="form-control" formControlName="telephone" maxlength="50">
     </div>
-    <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('telephone').hasError('required')"> {{requiredErrorMessage}}</div>
+    <div class="col-sm-2 text-danger" *ngIf="!isValid('telephone', 'required')"> {{requiredErrorMessage}}</div>
   </div>
 
   <div class="form-group">
@@ -24,7 +24,7 @@
       <textarea [(ngModel)]="delivery.description" class="form-control" rows="5" style="resize: none" formControlName="description"
         maxlength="1000" (keyup)="descriptionKeyup(delivery.description)"></textarea>
     </div>
-    <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('description').hasError('required')"> {{requiredErrorMessage}}</div>
+    <div class="col-sm-2 text-danger" *ngIf="!isValid('description', 'required')"> {{requiredErrorMessage}}</div>
     Restan {{descriptionAvailableCharacters}} caracteres.
   </div>
 
@@ -42,7 +42,7 @@
     <div class="col-sm-2">
       <input [(ngModel)]="delivery.address" class="form-control" formControlName="address" maxlength="200">
     </div>
-    <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('address').hasError('required')"> {{requiredErrorMessage}}</div>
+    <div class="col-sm-2 text-danger" *ngIf="!isValid('address', 'required')"> {{requiredErrorMessage}}</div>
   </div>
 
   <div class="form-group">
@@ -50,7 +50,7 @@
     <div class="col-sm-2">
       <input [(ngModel)]="delivery.businessHours" class="form-control" formControlName="businessHours" maxlength="50">
     </div>
-    <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('businessHours').hasError('required')"> {{requiredErrorMessage}}</div>
+    <div class="col-sm-2 text-danger" *ngIf="!isValid('businessHours', 'required')"> {{requiredErrorMessage}}</div>
   </div>
 
   <!--CONTACTS-->
@@ -66,7 +66,7 @@
           <input [(ngModel)]="delivery.administrativeContact.name" formControlName="administrativeContactName" class="form-control"
             maxlength="200">
         </div>
-        <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('administrativeContactName').hasError('required')"> {{requiredErrorMessage}}</div>
+        <div class="col-sm-2 text-danger" *ngIf="!isValid('administrativeContactName', 'required')"> {{requiredErrorMessage}}</div>
       </div>
 
       <div class="form-group">
@@ -75,7 +75,7 @@
           <input [(ngModel)]="delivery.administrativeContact.lastname" formControlName="administrativeContactLastname" class="form-control"
             maxlength="200">
         </div>
-        <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('administrativeContactLastname').hasError('required')"> {{requiredErrorMessage}}</div>
+        <div class="col-sm-2 text-danger" *ngIf="!isValid('administrativeContactLastname', 'required')"> {{requiredErrorMessage}}</div>
       </div>
 
       <div class="form-group">
@@ -84,7 +84,7 @@
           <input [(ngModel)]="delivery.administrativeContact.telephone" formControlName="administrativeContactTelephone" class="form-control"
             maxlength="100">
         </div>
-        <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('administrativeContactTelephone').hasError('required')"> {{requiredErrorMessage}}</div>
+        <div class="col-sm-2 text-danger" *ngIf="!isValid('administrativeContactTelephone', 'required')"> {{requiredErrorMessage}}</div>
       </div>
 
       <div class="form-group">
@@ -93,8 +93,8 @@
           <input [(ngModel)]="delivery.administrativeContact.email" formControlName="administrativeContactEmail" class="form-control"
             maxlength="100" type="email">
         </div>
-        <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('administrativeContactEmail').hasError('required')"> {{requiredErrorMessage}}</div>
-        <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('administrativeContactEmail').hasError('pattern')">El email ingresado es incorrecto</div>
+        <div class="col-sm-2 text-danger" *ngIf="!isValid('administrativeContactEmail', 'required')"> {{requiredErrorMessage}}</div>
+        <div class="col-sm-2 text-danger" *ngIf="!isValid('administrativeContactEmail', 'pattern')">El email ingresado es incorrecto</div>
       </div>
     </div>
 
@@ -106,7 +106,7 @@
         <div class="col-sm-6">
           <input [(ngModel)]="delivery.commercialContact.name" formControlName="commercialContactName" class="form-control" maxlength="200">
         </div>
-        <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('commercialContactName').hasError('required')"> {{requiredErrorMessage}}</div>
+        <div class="col-sm-2 text-danger" *ngIf="!isValid('commercialContactName', 'required')"> {{requiredErrorMessage}}</div>
       </div>
 
       <div class="form-group">
@@ -114,7 +114,7 @@
         <div class="col-sm-6">
           <input [(ngModel)]="delivery.commercialContact.lastname" formControlName="commercialContactLastname" class="form-control" maxlength="200">
         </div>
-        <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('commercialContactLastname').hasError('required')"> {{requiredErrorMessage}}</div>
+        <div class="col-sm-2 text-danger" *ngIf="!isValid('commercialContactLastname', 'required')"> {{requiredErrorMessage}}</div>
       </div>
 
       <div class="form-group">
@@ -122,7 +122,7 @@
         <div class="col-sm-6">
           <input [(ngModel)]="delivery.commercialContact.telephone" formControlName="commercialContactTelephone" class="form-control" maxlength="100">
         </div>
-        <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('commercialContactTelephone').hasError('required')"> {{requiredErrorMessage}}</div>
+        <div class="col-sm-2 text-danger" *ngIf="!isValid('commercialContactTelephone', 'required')"> {{requiredErrorMessage}}</div>
       </div>
 
       <div class="form-group">
@@ -130,8 +130,8 @@
         <div class="col-sm-6">
           <input [(ngModel)]="delivery.commercialContact.email" formControlName="commercialContactEmail" class="form-control" maxlength="100">
         </div>
-        <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('commercialContactEmail').hasError('required')"> {{requiredErrorMessage}}</div>
-        <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('commercialContactEmail').hasError('pattern')">El email ingresado es incorrecto</div>
+        <div class="col-sm-2 text-danger" *ngIf="!isValid('commercialContactEmail', 'required')"> {{requiredErrorMessage}}</div>
+        <div class="col-sm-2 text-danger" *ngIf="!isValid('commercialContactEmail', 'pattern')">El email ingresado es incorrecto</div>
       </div>
       
     </div>
