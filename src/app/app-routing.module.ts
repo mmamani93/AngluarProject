@@ -6,8 +6,8 @@ import { DeliveryDetailComponent }  from './components/delivery/delivery-detail.
  
 const routes: Routes = [
   { path: '', redirectTo: '/deliveries', pathMatch: 'full' },
-  { path: 'detail/:id', component: DeliveryDetailComponent },
   { path: 'detail', component: DeliveryDetailComponent },
+  { path: 'detail/:id', component: DeliveryDetailComponent },
   { path: 'deliveries', component: DeliveryComponent }
 ];
  

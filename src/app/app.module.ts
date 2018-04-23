@@ -5,7 +5,7 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService }  from './services/in-memory-data.service';
 import { HttpClientModule }    from '@angular/common/http';
 import { Pipe, PipeTransform } from '@angular/core';
-
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { DeliveryComponent } from './components/delivery/delivery.component';
@@ -25,6 +25,7 @@ import { DeliverynSearchPipe } from './components/delivery/deliveryFilter.pipe';
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(

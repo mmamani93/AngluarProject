@@ -1,79 +1,146 @@
-<form class="row form-inline" *ngIf="delivery">
+<form class="row form-horizontal" [formGroup]="deliveryForm" novalidate>
   <h3>Datos administrativos</h3>
   <hr>
-  <div class="col-md-12">
-    <div class="col-md-3">Nombre</div>
-    <input [(ngModel)]="delivery.name" class="form-control" name="name">
-  </div>
-  <div class="col-md-12">
-    <div class="col-md-3">Teléfono</div>
-    <input [(ngModel)]="delivery.telephone" name="telephone" class="form-control">
-  </div>
-  <div class="col-md-12">
-    <div class="col-md-3">Descripción</div>
-    <textarea  [(ngModel)]="delivery.description" name="description" class="form-control" rows="5"></textarea>
-  </div>
-  <div class="col-md-12">
-    <div class="col-md-3">Especialidades</div>
-    <textarea  [(ngModel)]="delivery.specialities" name="specialities" class="form-control" rows="5"></textarea>
-  </div>
-  <div class="col-md-12">
-    <div class="col-md-3">Dirección</div>
-    <input  [(ngModel)]="delivery.address" name="address" class="form-control">
-  </div>
-  <div class="col-md-12">
-    <div class="col-md-3">Horario de atención</div>
-    <input  [(ngModel)]="delivery.businessHours" name="businessHours" class="form-control">
-  </div>
-</form>
 
-<form class="row" *ngIf="delivery">
-  <div class="col-md-6 form-inline">
-    <h3>Contacto Administrativo</h3>
-    <hr>
-    <div class="col-md-12">
-      <div class="col-md-4">Nombre</div>
-      <input [(ngModel)]="delivery.administrativeContact.name" name="administrativeContact.name" class="form-control">
+  <div class="form-group">
+    <div class="control-label col-sm-2" style="text-align: left">Nombre</div>
+    <div class="col-sm-2">
+      <input [(ngModel)]="delivery?.name" class="form-control" formControlName="name" maxlength="50">
     </div>
-    <div class="col-md-12">
-      <div class="col-md-4">Apellido</div>
-      <input [(ngModel)]="delivery.administrativeContact.lastname" name="administrativeContact.lastname"  class="form-control">
-    </div>
-    <div class="col-md-12">
-      <div class="col-md-4">Teléfono</div>
-      <input [(ngModel)]="delivery.administrativeContact.telephone" name="administrativeContact.telephone" class="form-control">
-    </div>
-    <div class="col-md-12">
-      <div class="col-md-4">Email</div>
-      <input [(ngModel)]="delivery.administrativeContact.email" name="administrativeContact.email" class="form-control">
-    </div>
+    <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('name').hasError('required')"> {{requiredErrorMessage}}</div>
   </div>
 
-  <div class="col-md-6 form-inline">
-    <h3>Contacto Comercial</h3>
-    <hr>
-    <div class="col-md-12">
-      <div class="col-md-4">Nombre</div>
-      <input  [(ngModel)]="delivery.commercialContact.name" name="commercialContact.name" class="form-control">
+  <div class="form-group">
+    <div class="control-label col-sm-2" style="text-align: left">Teléfono</div>
+    <div class="col-sm-2">
+      <input [(ngModel)]="delivery?.telephone" class="form-control" formControlName="telephone" maxlength="50">
     </div>
-    <div class="col-md-12">
-      <div class="col-md-4">Apellido</div>
-      <input  [(ngModel)]="delivery.commercialContact.lastname" name="commercialContact.lastname" class="form-control">
+    <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('telephone').hasError('required')"> {{requiredErrorMessage}}</div>
+  </div>
+
+  <div class="form-group">
+    <div class="control-label col-sm-2" style="text-align: left">Descripción</div>
+    <div class="col-sm-4">
+      <textarea [(ngModel)]="delivery?.description" class="form-control" rows="5" style="resize: none" formControlName="description"
+        maxlength="1000" (keyup)="descriptionKeyup(delivery.description)"></textarea>
     </div>
-    <div class="col-md-12">
-      <div class="col-md-4">Teléfono</div>
-      <input [(ngModel)]="delivery.commercialContact.telephone" name="commercialContact.telephone"  class="form-control">
+    <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('description').hasError('required')"> {{requiredErrorMessage}}</div>
+    Restan {{descriptionAvailableCharacters}} caracteres.
+  </div>
+
+  <div class="form-group">
+    <div class="control-label col-sm-2" style="text-align: left">Especialidades</div>
+    <div class="col-sm-4">
+      <textarea [(ngModel)]="delivery?.specialities" class="form-control" rows="5" style="resize: none" formControlName="specialities"
+        maxlength="500" (keyup)="specialitiesKeyup(delivery.specialities)"></textarea>
     </div>
-    <div class="col-md-12">
-      <div class="col-md-4">Email</div>
-      <input  [(ngModel)]="delivery.commercialContact.email" name="commercialContact.email" class="form-control">
+    Restan {{specialitiesAvailableCharacters}} caracteres.
+  </div>
+
+  <div class="form-group">
+    <div class="control-label col-sm-2" style="text-align: left">Dirección</div>
+    <div class="col-sm-2">
+      <input [(ngModel)]="delivery?.address" class="form-control" formControlName="address" maxlength="200">
+    </div>
+    <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('address').hasError('required')"> {{requiredErrorMessage}}</div>
+  </div>
+
+  <div class="form-group">
+    <div class="control-label col-sm-2" style="text-align: left">Horario de atención</div>
+    <div class="col-sm-2">
+      <input [(ngModel)]="delivery.businessHours" class="form-control" formControlName="businessHours" maxlength="50">
+    </div>
+    <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('businessHours').hasError('required')"> {{requiredErrorMessage}}</div>
+  </div>
+
+  <!--CONTACTS-->
+
+  <div class="row">
+    <div class="col-md-6">
+      <h3>Contacto Administrativo</h3>
+      <hr>
+
+      <div class="form-group">
+        <div class="control-label col-sm-4" style="text-align: left">Nombre</div>
+        <div class="col-sm-6">
+          <input [(ngModel)]="delivery?.administrativeContact.name" formControlName="administrativeContactName" class="form-control"
+            maxlength="200">
+        </div>
+        <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('administrativeContactName').hasError('required')"> {{requiredErrorMessage}}</div>
+      </div>
+
+      <div class="form-group">
+        <div class="control-label col-sm-4" style="text-align: left">Apellido</div>
+        <div class="col-sm-6">
+          <input [(ngModel)]="delivery?.administrativeContact.lastname" formControlName="administrativeContactLastname" class="form-control"
+            maxlength="200">
+        </div>
+        <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('administrativeContactLastname').hasError('required')"> {{requiredErrorMessage}}</div>
+      </div>
+
+      <div class="form-group">
+        <div class="control-label col-sm-4" style="text-align: left">Teléfono</div>
+        <div class="col-sm-6">
+          <input [(ngModel)]="delivery?.administrativeContact.telephone" formControlName="administrativeContactTelephone" class="form-control"
+            maxlength="100">
+        </div>
+        <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('administrativeContactTelephone').hasError('required')"> {{requiredErrorMessage}}</div>
+      </div>
+
+      <div class="form-group">
+        <div class="control-label col-sm-4" style="text-align: left">Email</div>
+        <div class="col-sm-6">
+          <input [(ngModel)]="delivery?.administrativeContact.email" formControlName="administrativeContactEmail" class="form-control"
+            maxlength="100" type="email">
+        </div>
+        <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('administrativeContactEmail').hasError('required')"> {{requiredErrorMessage}}</div>
+        <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('administrativeContactEmail').hasError('pattern')">El email ingresado es incorrecto</div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <h3>Contacto Comercial</h3>
+      <hr>
+      <div class="form-group">
+        <div class="control-label col-sm-4" style="text-align: left">Nombre</div>
+        <div class="col-sm-6">
+          <input [(ngModel)]="delivery?.commercialContact.name" formControlName="commercialContactName" class="form-control" maxlength="200">
+        </div>
+        <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('commercialContactName').hasError('required')"> {{requiredErrorMessage}}</div>
+      </div>
+
+      <div class="form-group">
+        <div class="control-label col-sm-4" style="text-align: left">Apellido</div>
+        <div class="col-sm-6">
+          <input [(ngModel)]="delivery?.commercialContact.lastname" formControlName="commercialContactLastname" class="form-control" maxlength="200">
+        </div>
+        <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('commercialContactLastname').hasError('required')"> {{requiredErrorMessage}}</div>
+      </div>
+
+      <div class="form-group">
+        <div class="control-label col-sm-4" style="text-align: left">Teléfono</div>
+        <div class="col-sm-6">
+          <input [(ngModel)]="delivery?.commercialContact.telephone" formControlName="commercialContactTelephone" class="form-control" maxlength="100">
+        </div>
+        <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('commercialContactTelephone').hasError('required')"> {{requiredErrorMessage}}</div>
+      </div>
+
+      <div class="form-group">
+        <div class="control-label col-sm-4" style="text-align: left">Email</div>
+        <div class="col-sm-6">
+          <input [(ngModel)]="delivery?.commercialContact.email" formControlName="commercialContactEmail" class="form-control" maxlength="100">
+        </div>
+        <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('commercialContactEmail').hasError('required')"> {{requiredErrorMessage}}</div>
+        <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('commercialContactEmail').hasError('pattern')">El email ingresado es incorrecto</div>
+      </div>
+      
     </div>
   </div>
 </form>
 
 <div class="row">
-  <div class="col-md-4" style="float: right;">
-      <button class="btn btn-primary" (click)="goBack()">Cancelar</button>
-    <button class="btn btn-primary" (click)="save()">Guardar</button>
+  <div class="col-md-2" style="float: right;">
+    <button class="btn btn-primary" (click)="goBack()">Cancelar</button>
+    <button class="btn btn-primary" (click)="save()" [disabled]="!deliveryForm.valid">Guardar</button>
   </div>
 </div>
