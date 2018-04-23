@@ -12,6 +12,9 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 
 export class DeliveryDetailComponent implements OnInit {
   @Input() delivery: Delivery;
+
+  isEdit: boolean;
+
   deliveryForm: FormGroup;
   requiredErrorMessage = "Este campo es obligatorio";
   mailPattern = "[^ @]*@[^ @]*";
@@ -50,12 +53,19 @@ export class DeliveryDetailComponent implements OnInit {
 
   getDelivery(): void {
     const id = +this.route.snapshot.paramMap.get('id');
-    this.deliveryService.getDelivery(id)
-      .subscribe(delivery => {
-        this.delivery = delivery;
-        this.delivery.description ? this.descriptionAvailableCharacters = this.descriptionMaxCharacters - this.delivery.description.length : this.descriptionAvailableCharacters = this.descriptionMaxCharacters;
-        this.delivery.specialities ? this.specialitiesAvailableCharacters = this.specialitiesMaxCharacters - this.delivery.specialities.length : this.specialitiesAvailableCharacters = this.specialitiesMaxCharacters;
-      });
+    if (id) {
+      this.isEdit = true;
+      this.deliveryService.getDelivery(id)
+        .subscribe(delivery => {
+          this.delivery = delivery;
+          this.delivery.description ? this.descriptionAvailableCharacters = this.descriptionMaxCharacters - this.delivery.description.length : this.descriptionAvailableCharacters = this.descriptionMaxCharacters;
+          this.delivery.specialities ? this.specialitiesAvailableCharacters = this.specialitiesMaxCharacters - this.delivery.specialities.length : this.specialitiesAvailableCharacters = this.specialitiesMaxCharacters;
+        });
+    } else {
+      this.isEdit = false;
+      this.descriptionAvailableCharacters = this.descriptionMaxCharacters;
+      this.specialitiesAvailableCharacters = this.specialitiesMaxCharacters;
+    }
   }
 
   save(): void {

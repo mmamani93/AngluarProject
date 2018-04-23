@@ -1,11 +1,11 @@
-<form class="row form-horizontal" [formGroup]="deliveryForm" novalidate>
+<form class="row form-horizontal" [formGroup]="deliveryForm" *ngIf="delivery" novalidate>
   <h3>Datos administrativos</h3>
   <hr>
 
   <div class="form-group">
     <div class="control-label col-sm-2" style="text-align: left">Nombre</div>
     <div class="col-sm-2">
-      <input [(ngModel)]="delivery?.name" class="form-control" formControlName="name" maxlength="50">
+      <input [(ngModel)]="delivery.name" class="form-control" formControlName="name" maxlength="50">
     </div>
     <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('name').hasError('required')"> {{requiredErrorMessage}}</div>
   </div>
@@ -13,7 +13,7 @@
   <div class="form-group">
     <div class="control-label col-sm-2" style="text-align: left">Teléfono</div>
     <div class="col-sm-2">
-      <input [(ngModel)]="delivery?.telephone" class="form-control" formControlName="telephone" maxlength="50">
+      <input [(ngModel)]="delivery.telephone" class="form-control" formControlName="telephone" maxlength="50">
     </div>
     <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('telephone').hasError('required')"> {{requiredErrorMessage}}</div>
   </div>
@@ -21,7 +21,7 @@
   <div class="form-group">
     <div class="control-label col-sm-2" style="text-align: left">Descripción</div>
     <div class="col-sm-4">
-      <textarea [(ngModel)]="delivery?.description" class="form-control" rows="5" style="resize: none" formControlName="description"
+      <textarea [(ngModel)]="delivery.description" class="form-control" rows="5" style="resize: none" formControlName="description"
         maxlength="1000" (keyup)="descriptionKeyup(delivery.description)"></textarea>
     </div>
     <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('description').hasError('required')"> {{requiredErrorMessage}}</div>
@@ -31,7 +31,7 @@
   <div class="form-group">
     <div class="control-label col-sm-2" style="text-align: left">Especialidades</div>
     <div class="col-sm-4">
-      <textarea [(ngModel)]="delivery?.specialities" class="form-control" rows="5" style="resize: none" formControlName="specialities"
+      <textarea [(ngModel)]="delivery.specialities" class="form-control" rows="5" style="resize: none" formControlName="specialities"
         maxlength="500" (keyup)="specialitiesKeyup(delivery.specialities)"></textarea>
     </div>
     Restan {{specialitiesAvailableCharacters}} caracteres.
@@ -40,7 +40,7 @@
   <div class="form-group">
     <div class="control-label col-sm-2" style="text-align: left">Dirección</div>
     <div class="col-sm-2">
-      <input [(ngModel)]="delivery?.address" class="form-control" formControlName="address" maxlength="200">
+      <input [(ngModel)]="delivery.address" class="form-control" formControlName="address" maxlength="200">
     </div>
     <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('address').hasError('required')"> {{requiredErrorMessage}}</div>
   </div>
@@ -55,7 +55,7 @@
 
   <!--CONTACTS-->
 
-  <div class="row">
+  <div class="row" *ngIf="delivery">
     <div class="col-md-6">
       <h3>Contacto Administrativo</h3>
       <hr>
@@ -63,7 +63,7 @@
       <div class="form-group">
         <div class="control-label col-sm-4" style="text-align: left">Nombre</div>
         <div class="col-sm-6">
-          <input [(ngModel)]="delivery?.administrativeContact.name" formControlName="administrativeContactName" class="form-control"
+          <input [(ngModel)]="delivery.administrativeContact.name" formControlName="administrativeContactName" class="form-control"
             maxlength="200">
         </div>
         <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('administrativeContactName').hasError('required')"> {{requiredErrorMessage}}</div>
@@ -72,7 +72,7 @@
       <div class="form-group">
         <div class="control-label col-sm-4" style="text-align: left">Apellido</div>
         <div class="col-sm-6">
-          <input [(ngModel)]="delivery?.administrativeContact.lastname" formControlName="administrativeContactLastname" class="form-control"
+          <input [(ngModel)]="delivery.administrativeContact.lastname" formControlName="administrativeContactLastname" class="form-control"
             maxlength="200">
         </div>
         <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('administrativeContactLastname').hasError('required')"> {{requiredErrorMessage}}</div>
@@ -81,7 +81,7 @@
       <div class="form-group">
         <div class="control-label col-sm-4" style="text-align: left">Teléfono</div>
         <div class="col-sm-6">
-          <input [(ngModel)]="delivery?.administrativeContact.telephone" formControlName="administrativeContactTelephone" class="form-control"
+          <input [(ngModel)]="delivery.administrativeContact.telephone" formControlName="administrativeContactTelephone" class="form-control"
             maxlength="100">
         </div>
         <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('administrativeContactTelephone').hasError('required')"> {{requiredErrorMessage}}</div>
@@ -90,7 +90,7 @@
       <div class="form-group">
         <div class="control-label col-sm-4" style="text-align: left">Email</div>
         <div class="col-sm-6">
-          <input [(ngModel)]="delivery?.administrativeContact.email" formControlName="administrativeContactEmail" class="form-control"
+          <input [(ngModel)]="delivery.administrativeContact.email" formControlName="administrativeContactEmail" class="form-control"
             maxlength="100" type="email">
         </div>
         <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('administrativeContactEmail').hasError('required')"> {{requiredErrorMessage}}</div>
@@ -104,7 +104,7 @@
       <div class="form-group">
         <div class="control-label col-sm-4" style="text-align: left">Nombre</div>
         <div class="col-sm-6">
-          <input [(ngModel)]="delivery?.commercialContact.name" formControlName="commercialContactName" class="form-control" maxlength="200">
+          <input [(ngModel)]="delivery.commercialContact.name" formControlName="commercialContactName" class="form-control" maxlength="200">
         </div>
         <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('commercialContactName').hasError('required')"> {{requiredErrorMessage}}</div>
       </div>
@@ -112,7 +112,7 @@
       <div class="form-group">
         <div class="control-label col-sm-4" style="text-align: left">Apellido</div>
         <div class="col-sm-6">
-          <input [(ngModel)]="delivery?.commercialContact.lastname" formControlName="commercialContactLastname" class="form-control" maxlength="200">
+          <input [(ngModel)]="delivery.commercialContact.lastname" formControlName="commercialContactLastname" class="form-control" maxlength="200">
         </div>
         <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('commercialContactLastname').hasError('required')"> {{requiredErrorMessage}}</div>
       </div>
@@ -120,7 +120,7 @@
       <div class="form-group">
         <div class="control-label col-sm-4" style="text-align: left">Teléfono</div>
         <div class="col-sm-6">
-          <input [(ngModel)]="delivery?.commercialContact.telephone" formControlName="commercialContactTelephone" class="form-control" maxlength="100">
+          <input [(ngModel)]="delivery.commercialContact.telephone" formControlName="commercialContactTelephone" class="form-control" maxlength="100">
         </div>
         <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('commercialContactTelephone').hasError('required')"> {{requiredErrorMessage}}</div>
       </div>
@@ -128,7 +128,7 @@
       <div class="form-group">
         <div class="control-label col-sm-4" style="text-align: left">Email</div>
         <div class="col-sm-6">
-          <input [(ngModel)]="delivery?.commercialContact.email" formControlName="commercialContactEmail" class="form-control" maxlength="100">
+          <input [(ngModel)]="delivery.commercialContact.email" formControlName="commercialContactEmail" class="form-control" maxlength="100">
         </div>
         <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('commercialContactEmail').hasError('required')"> {{requiredErrorMessage}}</div>
         <div class="col-sm-2 text-danger" *ngIf="deliveryForm.get('commercialContactEmail').hasError('pattern')">El email ingresado es incorrecto</div>
