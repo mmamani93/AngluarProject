@@ -1,0 +1,82 @@
+<div class="row">
+    <div class="action-bar row s12 m6 offset-m6 l4 offset-l8" *ngIf="showDeleteAction||showEditAction||showAddAction||showDetailAction||paginationInputEnable||enableGeneralSearch">
+        <div class="fixed-action-btn">
+
+            <div class="col l12 input-field">
+                <a mz-tooltip href="javascript:void(0);" class="btn-floating btn-large waves-effect" *ngIf="showDetailAction" [class.disabled]="enableAction()"
+                    (click)="viewEvent.emit()" [tooltip]="'Ver detalle'">
+                    <i class="fa fa-fw fa-eye"></i>
+                </a>
+
+                <a mz-tooltip href="#" class="btn-floating btn-large waves-effect" *ngIf="showDeleteAction" [class.disabled]="enableAction()"
+                    [tooltip]="'Eliminar'">
+                    <i class="fa fa-fw fa-trash"></i>
+                </a>
+                <a mz-tooltip href="javascript:void(0);" class="btn-floating btn-large waves-effect" *ngIf="showEditAction" [class.disabled]="enableAction()"
+                    (click)="editEvent.emit()" [tooltip]="'Editar'">
+                    <i class="fa fa-fw mdi mdi-pencil"></i>
+                </a>
+                <a mz-tooltip href="javascript:void(0);" class="btn-floating btn-large waves-effect" *ngIf="showAddAction" (click)="addEvent.emit()"
+                    [tooltip]="'Agregar'">
+                    <i class="fa fa-fw fa-plus"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="col m2" *ngIf="paginationInputEnable">
+            <select class="custom-select" [(ngModel)]="rowNumber" (change)="changeRowNumber()">
+                <option *ngFor="let opt of paginationOptions">{{opt}}</option>
+            </select>
+        </div>
+        <!-- <div class="input-group col m6" *ngIf="enableGeneralSearch">
+            <input type="text" class="form-control" placeholder="Filtrar..." aria-describedby="basic-addon1" [(ngModel)]="filterInput" (input)="generalSearch()">
+        </div> -->
+        <div class="form-group col m6n offset-m6 " *ngIf="enableGeneralSearch">
+            <mz-input-container>
+
+                <input mz-input [label]="'Filtrar'" [validate]="true" id="filter" type="text" [(ngModel)]="filterInput" (input)="generalSearch()">
+            </mz-input-container>
+        </div>
+
+        <!--BUROKILL-->
+        <div *ngIf="enableProjectSearch">
+            <mz-input-container>
+                <input mz-input [label]="'Search by: Code (MK-XXX), Leader, Project Name or Maintenance Window'" [validate]="true" id="filter" type="text" [(ngModel)]="filterInput" (input)="generalSearch()">
+            </mz-input-container>
+        </div>
+
+    </div>
+
+    <table class="table striped table-responsive table-hover col m12">
+        <thead>
+            <tr>
+                <th *ngFor="let header of nameHeaders; let i = index" (click)="(sortColumns.indexOf(i) >= 0 || sortColumns.length === 0 ) && sortTable(tableHeaders[i])"
+                    style="cursor:pointer">{{header}}<i *ngIf="tableHeaders[i] == sortedElement" class="fa" [class.fa-sort-asc]="this.sortedWay == 1"
+                        [class.fa-sort-desc]="this.sortedWay == -1"></i></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of dataToShow | paginationFilter:firstElement:lastElement; let i = index " (click)="rowSelector && selectRow(i)"
+                (dblclick)="dobleClickRow(row)" [class.table-info]="row.selectedByNgTable === true">
+                <td *ngFor="let header of tableHeaders" [innerHtml]="row[header] |cellFormat:formatDate"></td>
+               
+                <td *ngIf="(rowDelete === true || rowEdit === true)">
+                    <a *ngIf="rowEdit === true" href="javascript:void(0);" (click)="editEvent.emit(row)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                    <a *ngIf="rowDelete === true" href="javascript:void(0);" (click)="deleteEvent.emit(row)"><i class="fa fa-times" aria-hidden="true"></i></a>
+                </td>
+            </tr>
+            <tr *ngIf="dataToShow.length==0">
+                <td [colSpan]="tableHeaders.length"> No se encontraron resultados para la busqueda</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="mx-auto" *ngIf="IsPagination">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item" [class.disabled]="!paginationPrevious" (click)="paginationPrevious && changePage(CurrentPage - 1)"><a class="page-link" href="javascript:void(0);">Anterior</a></li>
+                <li class="page-item" *ngFor="let number of PaginationArray" [class.disabled]="number == CurrentPage" (click)="!(number==CurrentPage) && changePage(number)"><a class="page-link" href="javascript:void(0);">{{number}}</a></li>
+                <li class="page-item" [class.disabled]="!paginationNext" (click)="paginationNext && changePage(CurrentPage + 1)"><a class="page-link" href="javascript:void(0);">Siguiente</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
