@@ -17,7 +17,7 @@ export class DeliveryDetailComponent implements OnInit {
 
   deliveryForm: FormGroup;
   requiredErrorMessage = "Este campo es obligatorio";
-  emailPattern = "[^ @]*@[^ @]*";
+  emailRegex = new RegExp('^[^@]+@[^@]+\.[^@]+$');
   descriptionMaxCharacters = 1000;
   specialitiesMaxCharacters = 500;
   descriptionAvailableCharacters: number;
@@ -99,12 +99,24 @@ export class DeliveryDetailComponent implements OnInit {
     return true;
   }
 
-
   checkForIdemContact(fieldName): boolean {
     let field = this.deliveryForm.get(fieldName);
-    if (this.delivery && this.delivery.commercialContact.idemContact && !field.value && (field.touched || field.dirty))
+    if (this.delivery && this.delivery.commercialContact.idemContact && !field.value && (field.touched || field.dirty)){
+      field.setErrors({'required': true});
       return true;
+    }
     return false;
   }
 
+  validEmail(fieldName): boolean {
+    let field = this.deliveryForm.get(fieldName);
+    if (this.delivery && this.delivery.commercialContact.idemContact && (field.touched || field.dirty)) {
+      if (field.value)
+        if (!this.emailRegex.test(field.value)){
+          field.setErrors({'invalid email': true});
+          return false;
+        }
+    }
+    return true;
+  }
 }
