@@ -14,6 +14,9 @@
 
 <hr style="margin-top: 0px">
 
+<customGrid [data]="deliveries" [gridOptions]="gridOptions"></customGrid>
+
+<!--
 <div class="row">
   <form class="col-md-8 well form-inline">
 
@@ -66,26 +69,4 @@
 
 
 
-
-<!--
-
-<ul>
-      <li *ngFor="let delivery of deliveries">
-        <a routerLink="/detail/{{delivery.id}}">
-          <span>{{delivery.id}}</span> {{delivery.name}}
-        </a>
-        <button class="delete" title="delete delivery" (click)="delete(delivery)">x</button>
-      </li>
-    </ul>
-
-<div>
-  <label>Dlivery name:
-    <input #deliveryName />
-  </label>
-  <button (click)="add(deliveryName.value); deliveryName.value=''">
-    add
-  </button>
-</div>
-
-<app-delivery-detail [delivery]="selectedDelivery"></app-delivery-detail>
 -->

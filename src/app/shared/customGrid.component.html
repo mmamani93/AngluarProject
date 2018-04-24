@@ -1,0 +1,37 @@
+<div class="row">
+    <form class="col-md-8 well form-inline">
+
+        <font size="4" class="col-md-2">
+            <span class="glyphicon glyphicon-filter"></span>
+            <b>Filtros</b>
+        </font>
+
+        <div *ngFor="let filter of gridOptions.filters" class="col-md-5">
+            <div class="col-md-4">{{filter.text}}</div>
+            <input type="text" [(ngModel)]="filter.value" class="form-control col-md-8" name="filter.name">
+        </div>
+    </form>
+</div>
+
+<table class="col-md-12 table table-striped table-bordered table-responsive">
+    <tr>
+        <th *ngFor="let col of gridOptions.columns">
+            <div *ngIf="col.sortable" (click)="sort(col)" role="button">
+                {{col.text}}
+                <i class="glyphicon glyphicon-chevron-up" *ngIf="!col.sortDescending" style="float: right"></i>
+                <i class="glyphicon glyphicon-chevron-down" *ngIf="col.sortDescending" style="float: right"></i>
+            </div>
+            <div *ngIf="!col.sortable">{{col.text}}</div>
+        </th>
+        <th class="col-md-1"></th>
+    </tr>
+    <tr *ngFor="let datum of data">
+        <td *ngFor="let col of gridOptions.columns">
+            {{datum[col.name]}}
+        </td>
+        <td>
+            <button type="button" class="btn btn-primary glyphicon glyphicon-trash"></button>
+            <button type="button" class="btn btn-danger glyphicon glyphicon-edit"></button>
+        </td>
+    </tr>
+</table>

@@ -13,14 +13,15 @@ import { DeliveryDetailComponent } from './components/delivery/delivery-detail.c
 import { DeliveryService } from './services/delivery.service';
 import { AppRoutingModule } from './app-routing.module';
 import { DeliverynSearchPipe } from './components/delivery/deliveryFilter.pipe';
-
+import { CustomGrid } from './shared/customGrid.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DeliveryComponent,
     DeliveryDetailComponent,
-    DeliverynSearchPipe
+    DeliverynSearchPipe,
+    CustomGrid
   ],
   imports: [
     BrowserModule,

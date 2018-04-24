@@ -13,12 +13,27 @@ export class DeliveryComponent implements OnInit {
 
   deliveries: Delivery[];
 
-  constructor(private deliveryService: DeliveryService) { 
+  gridOptions = {
+    filters: [
+      { name: "name", text: "Nombre", value: "" },
+      { name: "address", text: "Dirección", value: "" }
+    ],
+    columns: [
+      { name: "name", text: "Nombre", sortable: true, sortDescending: true}, 
+      { name: "address", text: "Dirección",sortable: false}, 
+      { name: "telephone", text: "Teléfono", sortable: false}
+    ],
+    pageSize: 5,
+  }
+
+  constructor(private deliveryService: DeliveryService) {
   }
 
   getDeliveries(): void {
     this.deliveryService.getDeliveries()
-      .subscribe(deliveries => this.deliveries = deliveries);
+      .subscribe(deliveries => {
+        this.deliveries = deliveries;
+      });
   }
 
   /*

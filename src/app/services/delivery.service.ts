@@ -14,12 +14,11 @@ const httpOptions = {
 @Injectable()
 export class DeliveryService {
  
-  private deliveriesUrl = 'api/deliveries';  // URL to web api
+  private deliveriesUrl = 'api/deliveries'; 
  
   constructor(
     private http: HttpClient) { }
  
-  /** GET deliveries from the server */
   getDeliveries (): Observable<Delivery[]> {
     return this.http.get<Delivery[]>(this.deliveriesUrl)
       .pipe(
