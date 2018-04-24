@@ -17,7 +17,7 @@ export class DeliveryDetailComponent implements OnInit {
 
   deliveryForm: FormGroup;
   requiredErrorMessage = "Este campo es obligatorio";
-  mailPattern = "[^ @]*@[^ @]*";
+  emailPattern = "[^ @]*@[^ @]*";
   descriptionMaxCharacters = 1000;
   specialitiesMaxCharacters = 500;
   descriptionAvailableCharacters: number;
@@ -39,11 +39,12 @@ export class DeliveryDetailComponent implements OnInit {
       administrativeContactName: new FormControl('', [Validators.required, Validators.maxLength(200)]),
       administrativeContactLastname: new FormControl('', [Validators.required, Validators.maxLength(200)]),
       administrativeContactTelephone: new FormControl('', [Validators.required, Validators.maxLength(100)]),
-      administrativeContactEmail: new FormControl('', [Validators.required, Validators.maxLength(100), Validators.pattern(this.mailPattern)]),
-      commercialContactName: new FormControl('', [Validators.required, Validators.maxLength(200)]),
-      commercialContactLastname: new FormControl('', [Validators.required, Validators.maxLength(200)]),
-      commercialContactTelephone: new FormControl('', [Validators.required, Validators.maxLength(100)]),
-      commercialContactEmail: new FormControl('', [Validators.required, Validators.maxLength(100), Validators.pattern(this.mailPattern)])
+      administrativeContactEmail: new FormControl('', [Validators.required, Validators.maxLength(100), Validators.email]),
+      commercialContactIdemContact: new FormControl(''),
+      commercialContactName: new FormControl('', [Validators.maxLength(200)]),
+      commercialContactLastname: new FormControl('', [Validators.maxLength(200)]),
+      commercialContactTelephone: new FormControl('', [Validators.maxLength(100)]),
+      commercialContactEmail: new FormControl('', [Validators.maxLength(100)])
     })
   }
 
@@ -70,8 +71,13 @@ export class DeliveryDetailComponent implements OnInit {
   }
 
   save(): void {
-    this.deliveryService.updateDelivery(this.delivery)
-      .subscribe(() => this.goBack());
+    if (this.isEdit) {
+      this.deliveryService.updateDelivery(this.delivery)
+        .subscribe(() => this.goBack());
+    } else {
+      this.deliveryService.addDelivery(this.delivery)
+        .subscribe(() => this.goBack());
+    }
   }
 
   goBack(): void {
@@ -79,11 +85,11 @@ export class DeliveryDetailComponent implements OnInit {
   }
 
   descriptionKeyup(text): void {
-    this.descriptionAvailableCharacters = this.descriptionMaxCharacters - text.length;
+    text ? this.descriptionAvailableCharacters = this.descriptionMaxCharacters - text.length : this.descriptionAvailableCharacters = this.descriptionMaxCharacters;
   }
 
   specialitiesKeyup(text): void {
-    this.specialitiesAvailableCharacters = this.specialitiesMaxCharacters - text.length;
+    text ? this.specialitiesAvailableCharacters = this.specialitiesMaxCharacters - text.length : this.specialitiesAvailableCharacters = this.specialitiesMaxCharacters;
   }
 
   isValid(fieldName: string, validation: string): boolean {
@@ -91,6 +97,14 @@ export class DeliveryDetailComponent implements OnInit {
     if (field.hasError(validation) && (field.touched || field.dirty) == true)
       return false;
     return true;
+  }
+
+
+  checkForIdemContact(fieldName): boolean {
+    let field = this.deliveryForm.get(fieldName);
+    if (this.delivery && this.delivery.commercialContact.idemContact && !field.value && (field.touched || field.dirty))
+      return true;
+    return false;
   }
 
 }
