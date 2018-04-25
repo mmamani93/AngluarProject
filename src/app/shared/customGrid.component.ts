@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { CustomSearchPipe } from '../shared/customPipe.component';
 
 @Component({
     selector: 'customGrid',
@@ -18,31 +19,51 @@ export class CustomGrid implements OnInit {
     paginationPrevious: boolean = false;
     currentPage: number = 1;
     dataToShow: any[];
+    dataFiltered: any[];
 
     ngOnInit(): void {
     }
 
     ngOnChanges(changes: SimpleChanges) {
         if (this.data) {
+            this.dataFiltered = this.data;
             this.dataToShow = this.data;
+            this.filterCustom();
             this.doInitialSort();
-            this.doPaginate();
         }
     }
+
+    filterCustom(): void {
+        let filtered: any[] = [];
+        for (let filter of this.gridOptions.filters) {
+            if (filter.value) {
+                for (let obj of this.data) {
+                    if (obj[filter.name] && obj[filter.name].toLowerCase().indexOf(filter.value.toLowerCase()) == -1)
+                        filtered.push(obj);
+                }
+            }
+        }
+
+        this.dataFiltered = this.data.filter(function (a) {
+            return !filtered.includes(a);
+        });
+
+        this.doPaginate();
+    }
+
 
     changePage(pageNumber: number) {
         this.currentPage = pageNumber;
         this.doPaginate();
-        this.updatePreviousAndNext();
     }
 
     updatePreviousAndNext() {
-        if (this.currentPage == 1)
+        if (this.currentPage == 1 || this.paginationArray.length == 0)
             this.paginationPrevious = false;
         else
             this.paginationPrevious = true;
 
-        if (this.currentPage == this.paginationArray[this.paginationArray.length - 1])
+        if (this.currentPage == this.paginationArray[this.paginationArray.length - 1] || this.paginationArray.length == 0)
             this.paginationNext = false;
         else
             this.paginationNext = true;
@@ -50,21 +71,25 @@ export class CustomGrid implements OnInit {
 
 
     doPaginate(): void {
-        this.pagesAmount = Math.ceil(this.data.length / this.gridOptions.pageSize);
+        this.pagesAmount = Math.ceil(this.dataFiltered.length / this.gridOptions.pageSize);
         this.paginationArray = Array(this.pagesAmount).fill(0).map((x, i) => i + 1);
 
         let start = (this.currentPage * this.gridOptions.pageSize) - this.gridOptions.pageSize;
         let end = (this.currentPage * this.gridOptions.pageSize);
-        this.dataToShow = this.data.slice(start, end);
+        this.dataToShow = this.dataFiltered.slice(start, end);
+
+        if (this.pagesAmount == 1)
+            this.currentPage = 1;
+        this.updatePreviousAndNext()
     }
 
     sort(column: any): void {
         let direction = column.sortDescending ? 1 : -1;
 
-        if(column.sortFunction)
-            this.data.sort(column.sortFunction(column, direction));
-        else{
-            this.data.sort(function (a, b) {
+        if (column.sortFunction)
+            this.dataFiltered.sort(column.sortFunction(column, direction));
+        else {
+            this.dataFiltered.sort(function (a, b) {
                 if (a[column.name].toLowerCase() < b[column.name].toLowerCase()) {
                     return -1 * direction;
                 }

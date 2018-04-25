@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Delivery } from '../../structures/delivery';
 import { DeliveryService } from '../../services/delivery.service';
-import { DeliverySearchPipe } from './deliveryFilter.pipe';
 import { Router } from '@angular/router';
 
 @Component({

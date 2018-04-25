@@ -8,7 +8,7 @@
 
         <div *ngFor="let filter of gridOptions.filters" class="col-md-5">
             <div class="col-md-4">{{filter.text}}</div>
-            <input type="text" [(ngModel)]="filter.value" class="form-control col-md-8" name="filter.name">
+            <input type="text" [(ngModel)]="filter.value" class="form-control col-md-8" name="filter.name" (keyup)="filterCustom()">
         </div>
     </form>
 </div>
@@ -41,7 +41,7 @@
     <li class="page-item" [class.disabled]="!paginationPrevious" (click)="paginationPrevious && changePage(currentPage - 1)">
         <a class="page-link glyphicon glyphicon-menu-left" href="javascript:void(0);"></a>
     </li>
-    <li *ngFor="let page of paginationArray" class="page-item" [class.disabled]="page == CurrentPage" (click)="!(page==CurrentPage) && changePage(page)">
+    <li *ngFor="let page of paginationArray" class="page-item" [class.disabled]="page == currentPage" (click)="!(page==currentPage) && changePage(page)">
         <a class="page-link" href="javascript:void(0);">{{page}}</a>
     </li>
     <li class="page-item" [class.disabled]="!paginationNext" (click)="paginationNext && changePage(currentPage + 1)">
