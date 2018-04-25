@@ -14,17 +14,34 @@ export class DeliveryComponent implements OnInit {
 
   deliveries: Delivery[];
 
+  sortFunction(column: any, direction: number): any {
+    return function (a, b) {
+      if (a[column.name].toLowerCase() < b[column.name].toLowerCase()) {
+        return -1 * direction;
+      }
+      else if (a[column.name].toLowerCase() > b[column.name].toLowerCase()) {
+        return 1 * direction;
+      }
+      else {
+        return 0;
+      }
+    }
+  }
+
   gridOptions = {
     filters: [
       { name: "name", text: "Nombre", value: "" },
       { name: "address", text: "Dirección", value: "" }
     ],
     columns: [
-      { name: "name", text: "Nombre", sortable: true, sortDescending: true },
+      {
+        name: "name", text: "Nombre", sortable: true, sortDescending: true,
+        sortFunction: this.sortFunction
+      },
       { name: "address", text: "Dirección", sortable: false },
       { name: "telephone", text: "Teléfono", sortable: false }
     ],
-    pageSize: 3,
+    pageSize: 3
   }
 
   constructor(

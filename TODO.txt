@@ -1,6 +1,7 @@
 
 ALONE
 Custom Pipe
+Pasar la funcion de sort desde Delivery a CustomGrid
 Sacar inline styles
 Word con toda la data que pide el pdf
 
