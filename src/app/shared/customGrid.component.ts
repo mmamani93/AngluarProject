@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { GridOption} from '../structures/gridOption';
 
 @Component({
     selector: 'customGrid',
@@ -8,7 +9,7 @@ import { Observable } from 'rxjs/Observable';
 
 export class CustomGrid implements OnInit {
     @Input() public data: any[] = [];
-    @Input() public gridOptions: any = null;
+    @Input() public gridOptions: GridOption = null;
     @Output() editEvent = new EventEmitter();
     @Output() deleteEvent = new EventEmitter();
 
@@ -68,7 +69,6 @@ export class CustomGrid implements OnInit {
             this.paginationNext = true;
     }
 
-
     doPaginate(): void {
         this.pagesAmount = Math.ceil(this.dataFiltered.length / this.gridOptions.pageSize);
         this.paginationArray = Array(this.pagesAmount).fill(0).map((x, i) => i + 1);
@@ -115,5 +115,10 @@ export class CustomGrid implements OnInit {
                 this.sort(column);
                 return;
             }
+    }
+
+    deleteElement(row: any){
+        if(confirm("¿Seguro desea eliminar este elemento?"))
+            this.deleteEvent.emit(row);
     }
 }

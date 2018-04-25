@@ -30,7 +30,7 @@
             {{row[col.name]}}
         </td>
         <td>
-            <button type="button" class="btn btn-primary glyphicon glyphicon-trash" (click)="deleteEvent.emit(row)"></button>
+            <button type="button" class="btn btn-primary glyphicon glyphicon-trash" (click)="deleteElement(row)"></button>
             <button type="button" class="btn btn-danger glyphicon glyphicon-edit" (click)="editEvent.emit(row)"></button>
         </td>
     </tr>

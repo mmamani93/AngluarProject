@@ -72,8 +72,9 @@ export class DeliveryDetailComponent implements OnInit {
 
   save(): void {
     if (this.isEdit) {
-      this.deliveryService.updateDelivery(this.delivery)
-        .subscribe(() => this.goBack());
+      if (confirm("¿Seguro que desea modificar el elemento?"))
+        this.deliveryService.updateDelivery(this.delivery)
+          .subscribe(() => this.goBack());
     } else {
       this.deliveryService.addDelivery(this.delivery)
         .subscribe(() => this.goBack());
@@ -101,10 +102,11 @@ export class DeliveryDetailComponent implements OnInit {
 
   checkForIdemContact(fieldName): boolean {
     let field = this.deliveryForm.get(fieldName);
-    if (this.delivery && this.delivery.commercialContact.idemContact && !field.value && (field.touched || field.dirty)){
-      field.setErrors({'required': true});
+    if (this.delivery && this.delivery.commercialContact.idemContact && !field.value) {
+      field.setErrors({ 'required': true });
       return true;
     }
+    field.setErrors(null);
     return false;
   }
 
@@ -112,8 +114,8 @@ export class DeliveryDetailComponent implements OnInit {
     let field = this.deliveryForm.get(fieldName);
     if (this.delivery && this.delivery.commercialContact.idemContact && (field.touched || field.dirty)) {
       if (field.value)
-        if (!this.emailRegex.test(field.value)){
-          field.setErrors({'invalid email': true});
+        if (!this.emailRegex.test(field.value)) {
+          field.setErrors({ 'invalid email': true });
           return false;
         }
     }

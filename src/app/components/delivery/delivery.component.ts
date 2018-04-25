@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Delivery } from '../../structures/delivery';
 import { DeliveryService } from '../../services/delivery.service';
 import { Router } from '@angular/router';
+import { GridOption, GridFilter, GridColumn } from '../../structures/gridOption';
 
 @Component({
   selector: 'app-delivery',
@@ -13,39 +14,13 @@ export class DeliveryComponent implements OnInit {
 
   deliveries: Delivery[];
 
-  sortFunction(column: any, direction: number): any {
-    return function (a, b) {
-      if (a[column.name].toLowerCase() < b[column.name].toLowerCase()) {
-        return -1 * direction;
-      }
-      else if (a[column.name].toLowerCase() > b[column.name].toLowerCase()) {
-        return 1 * direction;
-      }
-      else {
-        return 0;
-      }
-    }
-  }
-
-  gridOptions = {
-    filters: [
-      { name: "name", text: "Nombre", value: "" },
-      { name: "address", text: "Dirección", value: "" }
-    ],
-    columns: [
-      {
-        name: "name", text: "Nombre", sortable: true, sortDescending: true,
-        sortFunction: this.sortFunction
-      },
-      { name: "address", text: "Dirección", sortable: false },
-      { name: "telephone", text: "Teléfono", sortable: false }
-    ],
-    pageSize: 3
-  }
-
   constructor(
     private deliveryService: DeliveryService,
     private router: Router) { }
+
+  ngOnInit() {
+    this.getDeliveries();
+  }
 
   getDeliveries(): void {
     this.deliveryService.getDeliveries()
@@ -63,8 +38,31 @@ export class DeliveryComponent implements OnInit {
     this.router.navigateByUrl('/detail/' + delivery.id);
   }
 
-  ngOnInit() {
-    this.getDeliveries();
+  //GRID CONFIGURATION
+  sortFunction(column: any, direction: number): any {
+    return function (a, b) {
+      if (a[column.name].toLowerCase() < b[column.name].toLowerCase()) {
+        return -1 * direction;
+      }
+      else if (a[column.name].toLowerCase() > b[column.name].toLowerCase()) {
+        return 1 * direction;
+      }
+      else {
+        return 0;
+      }
+    }
+  }
+
+  gridOptions: GridOption = {
+    filters: [
+      new GridFilter("name", "Nombre"),
+      new GridFilter("address", "Dirección")],
+    columns: [
+      new GridColumn("name", "Nombre", true, true, this.sortFunction),
+      new GridColumn("address", "Dirección", false, null, null),
+      new GridColumn("telephone", "Teléfono", false, null, null)
+    ],
+    pageSize: 3
   }
 
 }
