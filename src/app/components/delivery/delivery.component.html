@@ -14,7 +14,7 @@
 
 <hr style="margin-top: 0px">
 
-<customGrid [data]="deliveries" [gridOptions]="gridOptions"></customGrid>
+<customGrid [data]="deliveries" [gridOptions]="gridOptions" (editEvent)="edit($event)" (deleteEvent)="delete($event)"></customGrid>
 
 <!--
 <div class="row">

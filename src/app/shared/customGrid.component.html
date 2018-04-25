@@ -25,13 +25,26 @@
         </th>
         <th class="col-md-1"></th>
     </tr>
-    <tr *ngFor="let datum of data">
+    <tr *ngFor="let row of dataToShow">
         <td *ngFor="let col of gridOptions.columns">
-            {{datum[col.name]}}
+            {{row[col.name]}}
         </td>
         <td>
-            <button type="button" class="btn btn-primary glyphicon glyphicon-trash"></button>
-            <button type="button" class="btn btn-danger glyphicon glyphicon-edit"></button>
+            <button type="button" class="btn btn-primary glyphicon glyphicon-trash" (click)="deleteEvent.emit(row)"></button>
+            <button type="button" class="btn btn-danger glyphicon glyphicon-edit" (click)="editEvent.emit(row)"></button>
         </td>
     </tr>
+    <tr *ngIf="dataToShow?.length===0">No se han encontrado coincidencias</tr>
 </table>
+
+<ul class="pagination" style="float:right">
+    <li class="page-item" [class.disabled]="!paginationPrevious" (click)="paginationPrevious && changePage(currentPage - 1)">
+        <a class="page-link glyphicon glyphicon-menu-left" href="javascript:void(0);"></a>
+    </li>
+    <li *ngFor="let page of paginationArray" class="page-item" [class.disabled]="page == CurrentPage" (click)="!(page==CurrentPage) && changePage(page)">
+        <a class="page-link" href="javascript:void(0);">{{page}}</a>
+    </li>
+    <li class="page-item" [class.disabled]="!paginationNext" (click)="paginationNext && changePage(currentPage + 1)">
+        <a class="page-link glyphicon glyphicon-menu-right" href="javascript:void(0);"></a>
+    </li>
+</ul>

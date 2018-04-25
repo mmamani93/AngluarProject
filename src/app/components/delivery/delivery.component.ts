@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Delivery } from '../../structures/delivery';
 import { DeliveryService } from '../../services/delivery.service';
 import { DeliverynSearchPipe } from './deliveryFilter.pipe';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-delivery',
@@ -19,15 +20,16 @@ export class DeliveryComponent implements OnInit {
       { name: "address", text: "Dirección", value: "" }
     ],
     columns: [
-      { name: "name", text: "Nombre", sortable: true, sortDescending: true}, 
-      { name: "address", text: "Dirección",sortable: false}, 
-      { name: "telephone", text: "Teléfono", sortable: false}
+      { name: "name", text: "Nombre", sortable: true, sortDescending: true },
+      { name: "address", text: "Dirección", sortable: false },
+      { name: "telephone", text: "Teléfono", sortable: false }
     ],
-    pageSize: 5,
+    pageSize: 3,
   }
 
-  constructor(private deliveryService: DeliveryService) {
-  }
+  constructor(
+    private deliveryService: DeliveryService,
+    private router: Router) { }
 
   getDeliveries(): void {
     this.deliveryService.getDeliveries()
@@ -36,22 +38,14 @@ export class DeliveryComponent implements OnInit {
       });
   }
 
-  /*
-  add(delivery: Delivery): void {
-    //name = name.trim();
-    //if (!name) { return; }
-    this.deliveryService.addDelivery(delivery)
-      .subscribe(delivery => {
-        this.deliveries.push(delivery);
-      });
-  }*/
-
-
   delete(delivery: Delivery): void {
     this.deliveries = this.deliveries.filter(h => h !== delivery);
     this.deliveryService.deleteDelivery(delivery).subscribe();
   }
 
+  edit(delivery: Delivery): void {
+    this.router.navigateByUrl('/detail/' + delivery.id);
+  }
 
   ngOnInit() {
     this.getDeliveries();
