@@ -1,0 +1,11 @@
+
+ALONE
+Custom Pipe
+Sacar inline styles
+Word con toda la data que pide el pdf
+
+
+ADDITIONAL
+
+UnitTesting
+IntegrationTest
