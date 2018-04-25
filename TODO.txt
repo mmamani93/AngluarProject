@@ -1,7 +1,7 @@
 
 ALONE
-Custom Pipe
-Pasar la funcion de sort desde Delivery a CustomGrid
+Validation messages on save edit and delete
+Validation when checkbox is clicked
 Sacar inline styles
 Word con toda la data que pide el pdf
 

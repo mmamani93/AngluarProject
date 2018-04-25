@@ -1,6 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { CustomSearchPipe } from '../shared/customPipe.component';
 
 @Component({
     selector: 'customGrid',
