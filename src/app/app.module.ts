@@ -12,7 +12,7 @@ import { DeliveryComponent } from './components/delivery/delivery.component';
 import { DeliveryDetailComponent } from './components/delivery/delivery-detail.component';
 import { DeliveryService } from './services/delivery.service';
 import { AppRoutingModule } from './app-routing.module';
-import { DeliverynSearchPipe } from './components/delivery/deliveryFilter.pipe';
+import { DeliverySearchPipe } from './components/delivery/deliveryFilter.pipe';
 import { CustomGrid } from './shared/customGrid.component';
 
 @NgModule({
@@ -20,7 +20,7 @@ import { CustomGrid } from './shared/customGrid.component';
     AppComponent,
     DeliveryComponent,
     DeliveryDetailComponent,
-    DeliverynSearchPipe,
+    DeliverySearchPipe,
     CustomGrid
   ],
   imports: [
