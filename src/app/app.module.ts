@@ -6,6 +6,7 @@ import { InMemoryDataService }  from './services/in-memory-data.service';
 import { HttpClientModule }    from '@angular/common/http';
 import { Pipe, PipeTransform } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AmazingTimePickerModule } from 'amazing-time-picker';
 
 import { AppComponent } from './app.component';
 import { DeliveryComponent } from './components/delivery/delivery.component';
@@ -27,6 +28,7 @@ import { CustomGrid } from './shared/customGrid.component';
     ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
+    AmazingTimePickerModule,
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { dataEncapsulation: false }
     )

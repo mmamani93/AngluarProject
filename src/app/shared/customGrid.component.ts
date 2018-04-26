@@ -4,7 +4,8 @@ import { GridOption} from '../structures/gridOption';
 
 @Component({
     selector: 'customGrid',
-    templateUrl: './customGrid.component.html'
+    templateUrl: './customGrid.component.html',
+    styleUrls: ['customGrid.component.css']
 })
 
 export class CustomGrid implements OnInit {

@@ -7,13 +7,16 @@ export class Delivery {
   description: string;
   specialities: string;
   address: string;
-  businessHours: string;
+  businessHourStart: string;
+  businessHourEnd: string;
   telephone: string;
   commercialContact: CommercialContact;
   administrativeContact: AdministrativeContact;
 
   constructor() {
     this.administrativeContact = new AdministrativeContact();
-    this.commercialContact = new CommercialContact()
+    this.commercialContact = new CommercialContact();
+    this.businessHourStart = "00.00";
+    this.businessHourEnd ="00.00";
   }
 }

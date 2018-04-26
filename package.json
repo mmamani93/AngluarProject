@@ -21,9 +21,11 @@
     "@angular/platform-browser": "^5.2.0",
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
+    "amazing-time-picker": "^1.5.3",
     "angular-in-memory-web-api": "^0.5.4",
     "bootstrap": "^4.1.0",
     "core-js": "^2.4.1",
+    "ng4-timepicker": "^1.4.1",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"
   },

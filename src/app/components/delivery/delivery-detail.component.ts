@@ -4,10 +4,12 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { DeliveryService } from '../../services/delivery.service';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { AmazingTimePickerModule } from 'amazing-time-picker';
 
 @Component({
   selector: 'app-delivery-detail',
-  templateUrl: './delivery-detail.component.html'
+  templateUrl: './delivery-detail.component.html',
+  styleUrls: ['delivery.component.css']
 })
 
 export class DeliveryDetailComponent implements OnInit {
@@ -17,6 +19,7 @@ export class DeliveryDetailComponent implements OnInit {
 
   deliveryForm: FormGroup;
   requiredErrorMessage = "Este campo es obligatorio";
+  formatErrorMessage = "Por favor, revise la información ingresada";
   emailRegex = new RegExp('^[^@]+@[^@]+\.[^@]+$');
   descriptionMaxCharacters = 1000;
   specialitiesMaxCharacters = 500;
@@ -30,20 +33,21 @@ export class DeliveryDetailComponent implements OnInit {
     fb: FormBuilder
   ) {
     this.deliveryForm = fb.group({
-      name: new FormControl('', [Validators.required, Validators.maxLength(50)]),
-      telephone: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+      name: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.pattern("[a-zA-Z\\s-]+")]),
+      telephone: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.pattern("[0-9-+s()]*")]),
       description: new FormControl('', [Validators.required, Validators.maxLength(1000)]),
       specialities: new FormControl('', [Validators.maxLength(500)]),
       address: new FormControl('', [Validators.required, Validators.maxLength(200)]),
-      businessHours: new FormControl('', [Validators.required]),
-      administrativeContactName: new FormControl('', [Validators.required, Validators.maxLength(200)]),
-      administrativeContactLastname: new FormControl('', [Validators.required, Validators.maxLength(200)]),
-      administrativeContactTelephone: new FormControl('', [Validators.required, Validators.maxLength(100)]),
+      businessHourStart: new FormControl('', [Validators.required, Validators.pattern("([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]")]),
+      businessHourEnd: new FormControl('', [Validators.required, Validators.pattern("([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]")]),
+      administrativeContactName: new FormControl('', [Validators.required, Validators.maxLength(200), Validators.pattern("[a-zA-Z\\s-]+")]),
+      administrativeContactLastname: new FormControl('', [Validators.required, Validators.maxLength(200), Validators.pattern("[a-zA-Z\\s-]+")]),
+      administrativeContactTelephone: new FormControl('', [Validators.required, Validators.maxLength(100), Validators.pattern("[0-9-+s()]*")]),
       administrativeContactEmail: new FormControl('', [Validators.required, Validators.maxLength(100), Validators.email]),
       commercialContactIdemContact: new FormControl(''),
-      commercialContactName: new FormControl('', [Validators.maxLength(200)]),
-      commercialContactLastname: new FormControl('', [Validators.maxLength(200)]),
-      commercialContactTelephone: new FormControl('', [Validators.maxLength(100)]),
+      commercialContactName: new FormControl('', [Validators.maxLength(200), Validators.pattern("[a-zA-Z\\s-]+")]),
+      commercialContactLastname: new FormControl('', [Validators.maxLength(200), Validators.pattern("[a-zA-Z\\s-]+")]),
+      commercialContactTelephone: new FormControl('', [Validators.maxLength(100), Validators.pattern("[0-9-+s()]*")]),
       commercialContactEmail: new FormControl('', [Validators.maxLength(100)])
     })
   }

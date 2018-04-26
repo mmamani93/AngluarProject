@@ -1,0 +1,13 @@
+.wrapper {
+    margin: 0 auto; 
+    width: 98%; 
+  }
+
+.margin-lt{
+   margin-left: 5%; 
+   margin-right: 5%
+}
+
+.margin-top {
+  margin-top: 3%;
+}

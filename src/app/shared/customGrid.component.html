@@ -18,8 +18,8 @@
         <th *ngFor="let col of gridOptions.columns">
             <div *ngIf="col.sortable" (click)="sort(col)" role="button">
                 {{col.text}}
-                <i class="glyphicon glyphicon-chevron-up" *ngIf="!col.sortDescending" style="float: right"></i>
-                <i class="glyphicon glyphicon-chevron-down" *ngIf="col.sortDescending" style="float: right"></i>
+                <i class="glyphicon glyphicon-chevron-up float-right" *ngIf="!col.sortDescending"></i>
+                <i class="glyphicon glyphicon-chevron-down float-right" *ngIf="col.sortDescending"></i>
             </div>
             <div *ngIf="!col.sortable">{{col.text}}</div>
         </th>
@@ -37,7 +37,7 @@
     <tr *ngIf="dataToShow?.length===0">No se han encontrado coincidencias</tr>
 </table>
 
-<ul class="pagination" style="float:right">
+<ul class="pagination float-right">
     <li class="page-item" [class.disabled]="!paginationPrevious" (click)="paginationPrevious && changePage(currentPage - 1)">
         <a class="page-link glyphicon glyphicon-menu-left" href="javascript:void(0);"></a>
     </li>

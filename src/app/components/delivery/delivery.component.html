@@ -2,9 +2,9 @@
   <div class="col-md-10">
     <h3>{{title}}</h3>
   </div>
-  <div class="col-md-2">
+  <div class="col-md-2" style="float: right;   margin-top: 20px;  margin-bottom: 10px">
     <a routerLink="/detail">
-      <button class="btn btn-primary" style="float: right; margin-top: 20px; margin-bottom: 10px;">
+      <button class="btn btn-primary">
         <span class="glyphicon glyphicon-asterisk"></span>
         {{newDeliveryButton}}
       </button>
@@ -12,7 +12,7 @@
   </div>
 </div>
 
-<hr style="margin-top: 0px">
+<hr class="no-margin-top">
 
 <customGrid [data]="deliveries" [gridOptions]="gridOptions" (editEvent)="edit($event)" (deleteEvent)="delete($event)"></customGrid>
 
